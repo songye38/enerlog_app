@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:enerlog_app/core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart'; // 🌟 GoRouter 직접 임포트!
 
 class HomeLetterSection extends StatelessWidget {
   final String date;
@@ -16,7 +17,6 @@ class HomeLetterSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // [파트 1] 오늘의 편지 카드 Box (동일)
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20.0),
@@ -46,36 +46,39 @@ class HomeLetterSection extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              // 🌟 [파트 2] 복잡했던 버튼 영역이 한눈에 들어오게 변합니다!
               const SizedBox(height: 20),
               Row(
                 children: [
+                  // ⚡ 1. 나의 에너지 레벨 버튼
                   _buildMenuButton(
                     title: "나의 에너지 레벨",
-                    icon: Icons.bolt, // ⚡ 에너지 레벨에 어울리는 번개 아이콘 예시
-                    onTap: () => print("에너지 레벨 클릭됨"),
+                    icon: Icons.bolt,
+                    // 🌟 내부에서 직접 주소를 쏴줍니다. (에너지 주소에 맞게 변경 가능)
+                    onTap: () => context.push('/energy-level'), 
                   ),
                   const SizedBox(width: 12),
+                  
+                  // ❤️ 2. 나를 채우는 활동 버튼
                   _buildMenuButton(
                     title: "나를 채우는 활동",
-                    icon: Icons.favorite, // ❤️ 활동에 어울리는 하트 아이콘 예시
-                    onTap: () => print("채우는 활동 클릭됨"),
+                    icon: Icons.favorite,
+                    // 🌟 아까 라우터에 세팅한 '/acts' 주소로 직접 이동!
+                    onTap: () => context.push('/acts'), 
                   ),
                 ],
               ),
             ],
           ),
         ),
-
         const SizedBox(height: 20),
       ],
     );
   }
 
-  // 🌟 String iconPath 대신 IconData icon을 받도록 수정합니다.
+  // 버튼 레이아웃 빌더는 동일
   Widget _buildMenuButton({
     required String title,
-    required IconData icon, // 💡 여기에 아이콘 데이터를 받습니다.
+    required IconData icon,
     required VoidCallback onTap,
   }) {
     return Expanded(
@@ -91,12 +94,7 @@ class HomeLetterSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 🌟 Image.asset 대신 순정 Icon 위젯을 넣습니다!
-              Icon(
-                icon,
-                size: 16, // 아이콘 크기 조절
-                color: AppColors.blue8, // 아이콘 색상 조절 (디자인 테마에 맞게)
-              ),
+              Icon(icon, size: 16, color: AppColors.blue8),
               const SizedBox(width: 8),
               Text(
                 title,
