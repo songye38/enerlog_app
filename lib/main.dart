@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         // 폰트 패밀리를 아예 앱 전체 기본값으로 지정!
-        fontFamily: 'PretendardVariable',
+        fontFamily: 'Pretendard',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       routerConfig: AppRouter.router,
